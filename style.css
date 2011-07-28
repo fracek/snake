@@ -1,0 +1,23 @@
+@import url(http://fonts.googleapis.com/css?family=Bowlby+One+SC);
+
+html {
+    background: url('bg.png') repeat;
+}
+
+h1 {
+    font: 'Bowlby One', sans-serif;
+    color: white;
+    font-size: 64px;
+    text-align: center;
+}
+
+h2 { display: none; }
+
+canvas {
+    border: 1px solid black;
+    background: #8CC09F;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
