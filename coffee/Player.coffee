@@ -65,8 +65,13 @@ class Player
     @stopEating()
     size = @size
     ctx.fillStyle = '#2F2F2F'
+    ctx.strokeStyle = '#C7FAD9'
     @body.forEach (piece) ->
-      ctx.fillRect(piece[0] * size, piece[1] * size, size, size)
+      ctx.beginPath()
+      ctx.rect(piece[0] * size, piece[1] * size, size, size)
+      ctx.closePath()
+      ctx.fill()
+      ctx.stroke()
 
 # Create player
 window.player = new Player 20
