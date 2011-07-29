@@ -13,6 +13,19 @@ clear = ->
   ctx.closePath()
   ctx.fill()
 
+# Update the snake speed
+window.updateSpeed = (newSpeed) ->
+  if (1 <= newSpeed <= 7)
+    window.speed = newSpeed
+
+  console.log 'new speed: ' + window.speed
+
+# Start the game
+window.startGame = ->
+  score = 0
+  window.gameOver = false
+  gameLoop();
+
 checkSnakeEatApple = ->
   snake = window.player.head()
   apple = window.grid.apple
@@ -20,7 +33,7 @@ checkSnakeEatApple = ->
   if ( snake[0] is apple[0] ) and (snake[1] is apple[1])
     window.player.eat()
     window.grid.moveApple()
-    score += 10
+    score += (10 * window.speed)
     $('#playerScore').text(score)
 
 checkSnakeHitWalls = ->
@@ -38,17 +51,17 @@ gameLoop =  ->
     player.draw()
     checkSnakeEatApple()
     window.gameOver = (checkSnakeHitWalls() or window.player.isEatingItself())
-    setTimeout(gameLoop, 1000/10);
+    setTimeout(gameLoop, 1000/((window.speed + 2) * 2));
 
 
 # Player score
 score = 0
-window.gameOver = false
+window.gameOver = true
+window.speed = 3
 
-gameLoop();
 
 document.onkeydown = (e) ->
-
+  console.log e.keyCode
   if (e.keyCode is 39) # Right
     player.setDir 'right'
   else if (e.keyCode is 37) # Left
@@ -57,3 +70,5 @@ document.onkeydown = (e) ->
     player.setDir 'down'
   else if (e.keyCode is 38) # Up
     player.setDir 'up'
+  else if (e.keyCode is 83) # S
+    startGame()
