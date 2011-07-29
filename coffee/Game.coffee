@@ -1,21 +1,21 @@
-
-
+# Setup the canvas
 c = document.getElementById('c')
-c.width = 600
-c.height = 450
+c.width = window.grid.pixelWidth()
+c.height = window.grid.pixelHeight()
 
 window.ctx = c.getContext('2d')
 
 clear = ->
   ctx.fillStyle = "#8CC09F"
   ctx.beginPath()
-  ctx.rect(0, 0, 600, 450)
+  ctx.rect(0, 0, c.width, c.height)
   ctx.closePath()
   ctx.fill()
 
 
 gameLoop =  ->
   clear()
+  grid.draw()
   player.draw()
   setTimeout(gameLoop, 1000/10);
 

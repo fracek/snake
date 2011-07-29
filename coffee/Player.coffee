@@ -1,11 +1,12 @@
-size = 10 # Each piece of the body is 10px X 10px
-
+# The Player, a.k.a. the snake
 class Player
 
-  constructor: ->
-    # Initial position
-    @body = [[10, 10], [11, 10], [12, 10], [13, 10]]
-    @dir = 'left'
+  constructor: (@size = 10) ->
+    # Snake's body
+    @body = []
+    for i in [10...18]
+      @body.push [i, 10]
+    @dir = 'right'
 
   setDir: (d) ->
 
@@ -40,8 +41,10 @@ class Player
 
   draw: ->
     @move()
+    size = @size
     ctx.fillStyle = '#2F2F2F'
     @body.forEach (piece) ->
       ctx.fillRect(piece[0] * size, piece[1] * size, size, size)
 
-window.player = new Player
+# Create player
+window.player = new Player 20
