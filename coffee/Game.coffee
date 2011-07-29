@@ -5,8 +5,6 @@ c.height = window.grid.pixelHeight()
 
 window.ctx = c.getContext('2d')
 
-# Player score
-score = 0
 
 clear = ->
   ctx.fillStyle = "#8CC09F"
@@ -25,12 +23,27 @@ checkSnakeEatApple = ->
     score += 10
     $('#playerScore').text(score)
 
+checkSnakeHitWalls = ->
+  snake = window.player.head()
+  if (snake[0] <= 0) or (snake[0] >= window.grid.width) \
+  or (snake[1] <= 0) or (snake[1] >= window.grid.height)
+    return true
+  return false
+
 gameLoop =  ->
-  clear()
-  grid.draw()
-  player.draw()
-  checkSnakeEatApple()
-  setTimeout(gameLoop, 1000/10);
+  console.log gameOver
+  unless window.gameOver
+    clear()
+    grid.draw()
+    player.draw()
+    checkSnakeEatApple()
+    window.gameOver = checkSnakeHitWalls()
+    setTimeout(gameLoop, 1000/10);
+
+
+# Player score
+score = 0
+window.gameOver = false
 
 gameLoop();
 
