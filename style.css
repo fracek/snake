@@ -34,6 +34,19 @@ h2 { display: none; }
     margin: 10px auto;
 }
 
+#shareScore {
+    display: inline;
+}
+
+#tweetScore {
+    background: url('tweet.png') no-repeat;
+    background-size: 20px 20px;
+    width: 20px;
+    height: 20px;
+    float: right;
+    text-indent: -9999px;
+}
+
 #controlPanel {
     display: block;
     color: #2F2F2F;

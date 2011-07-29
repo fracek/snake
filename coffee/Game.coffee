@@ -17,6 +17,18 @@ clear = ->
 updateScore = ->
   $('#playerScore').text(window.score)
 
+showMenuPanel = ->
+  tweetBtn = "<a id='tweetScore' href='http://twitter.com/share?
+url=http%3A%2F%2Fplaysnakenow.com%2F&text=I%20have%20just%20scored%20#{window.lastScore}%20points%20on%20PlaySnakeNow!'
+  target='_blank'>
+  Tweet Score</a>"
+    # data-text='I have just scored #{window.lastScore} points on PlaySnakeNow!'
+  console.log tweetBtn
+
+  $('#shareScore').html(tweetBtn)
+  $('#menuPanel').removeClass('hidden')
+  $('#scorePanel').addClass('hidden')
+
 # Update the snake speed
 window.updateSpeed = (newSpeed) ->
   if (3 <= newSpeed <= 9)
@@ -63,11 +75,13 @@ gameLoop =  ->
     setTimeout(gameLoop, 1000/(window.speed * 2));
   else
     # Game finished, show the controls
-    $('#menuPanel').removeClass('hidden')
-    $('#scorePanel').addClass('hidden')
+    window.lastScore = window.score
+    showMenuPanel()
+
 
 # Player score
 window.score = 0
+window.lastScore = 0
 window.gameOver = true
 window.speed = 5
 
