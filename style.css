@@ -85,3 +85,26 @@ footer {
 footer a {
     color: #8CC09F;
 }
+
+/* FAQ
+ ================================= */
+#faq {
+    font-family: monospace;
+    color: #2F2F2F;
+}
+
+#faq h3 {
+    margin-bottom: 0px;
+}
+
+#faq p {
+    margin-top: 5px;
+}
+
+#faq a {
+    color: #BF3636;
+}
+
+#faq a:hover {
+    color: #BF6363;
+}
