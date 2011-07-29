@@ -8,7 +8,16 @@ class Player
     @dir = 'left'
 
   setDir: (d) ->
-    @dir = d
+
+    if (d is 'left' and @dir is 'right') \
+    or (d is 'right' and @dir is 'left') \
+    or (d is 'up' and @dir is 'down') \
+    or (d is 'down' and @dir is 'up')
+        newDir = @dir
+    else
+      newDir = d
+
+    @dir = newDir
 
   head: ->
     @body[@body.length - 1]
