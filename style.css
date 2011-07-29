@@ -17,6 +17,11 @@ h1 {
     margin: 10px;
 }
 
+h1 a, h1 a:hover, h1 a:visited {
+    color: white;
+    text-decoration: none;
+}
+
 h2 { display: none; }
 
 .wrapper {
