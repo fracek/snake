@@ -3,11 +3,7 @@ class Player
 
   constructor: (@size = 10) ->
     # Snake's body
-    @body = []
-    for i in [10...18]
-      @body.push [i, 10]
-    @dir = 'right'
-    @isEating = false
+    @initialPosition()
 
   setDir: (d) ->
 
@@ -23,6 +19,13 @@ class Player
 
   head: ->
     @body[@body.length - 1]
+
+  initialPosition: ->
+    @body = []
+    for i in [10...18]
+      @body.push [i, 10]
+    @dir = 'right'
+    @isEating = false
 
   move: ->
     currentHead = @head()

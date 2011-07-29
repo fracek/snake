@@ -13,17 +13,27 @@ clear = ->
   ctx.closePath()
   ctx.fill()
 
+
+updateScore = ->
+  $('#playerScore').text(window.score)
+
 # Update the snake speed
 window.updateSpeed = (newSpeed) ->
-  if (1 <= newSpeed <= 7)
+  if (3 <= newSpeed <= 9)
     window.speed = newSpeed
-
-  console.log 'new speed: ' + window.speed
+  $('#speedVal').text(window.speed)
 
 # Start the game
 window.startGame = ->
-  score = 0
+  window.score = 0
+  updateScore()
+  window.grid.moveApple()
+  window.player.initialPosition()
   window.gameOver = false
+
+  $('#menuPanel').addClass('hidden')
+  $('#scorePanel').removeClass('hidden')
+  console.log window.score
   gameLoop();
 
 checkSnakeEatApple = ->
@@ -33,8 +43,8 @@ checkSnakeEatApple = ->
   if ( snake[0] is apple[0] ) and (snake[1] is apple[1])
     window.player.eat()
     window.grid.moveApple()
-    score += (10 * window.speed)
-    $('#playerScore').text(score)
+    window.score += (10 * window.speed)
+    updateScore()
 
 checkSnakeHitWalls = ->
   snake = window.player.head()
@@ -44,24 +54,25 @@ checkSnakeHitWalls = ->
   return false
 
 gameLoop =  ->
-  console.log gameOver
-  unless window.gameOver
+  if not  window.gameOver
     clear()
     grid.draw()
     player.draw()
     checkSnakeEatApple()
     window.gameOver = (checkSnakeHitWalls() or window.player.isEatingItself())
-    setTimeout(gameLoop, 1000/((window.speed + 2) * 2));
-
+    setTimeout(gameLoop, 1000/(window.speed * 2));
+  else
+    # Game finished, show the controls
+    $('#menuPanel').removeClass('hidden')
+    $('#scorePanel').addClass('hidden')
 
 # Player score
-score = 0
+window.score = 0
 window.gameOver = true
-window.speed = 3
+window.speed = 5
 
 
 document.onkeydown = (e) ->
-  console.log e.keyCode
   if (e.keyCode is 39) # Right
     player.setDir 'right'
   else if (e.keyCode is 37) # Left
