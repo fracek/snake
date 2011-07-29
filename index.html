@@ -1,6 +1,9 @@
 <html>
   <head>
     <title>Snake</title>
+    <script type="text/javascript" 
+	    src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.6.2/jquery.min.js">
+    </script>
     <script src="coffee-script.js" type="text/javascript"></script>
     <script type="text/coffeescript" src="coffee/Grid.coffee"></script>
     <script type="text/coffeescript" src="coffee/Player.coffee"></script>
@@ -9,8 +12,11 @@
     <link rel="stylesheet" href="style.css">
   </head>  
   <body>
-    <h1>Snake</h1>
-    <h2>Since '97</h2>
-    <canvas id="c"></canvas>
+    <div class="wrapper">
+      <h1>Snake</h1>
+      <h2>Since '97</h2>
+      <p>Score: <span id="playerScore">0</span></p>
+      <canvas id="c"></canvas>
+    </div> 
   </body>
 </html>

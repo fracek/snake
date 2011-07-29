@@ -5,6 +5,9 @@ c.height = window.grid.pixelHeight()
 
 window.ctx = c.getContext('2d')
 
+# Player score
+score = 0
+
 clear = ->
   ctx.fillStyle = "#8CC09F"
   ctx.beginPath()
@@ -15,9 +18,12 @@ clear = ->
 checkSnakeEatApple = ->
   snake = window.player.head()
   apple = window.grid.apple
+  # increase score and update the text
   if ( snake[0] is apple[0] ) and (snake[1] is apple[1])
     window.player.eat()
     window.grid.moveApple()
+    score += 10
+    $('#playerScore').text(score)
 
 gameLoop =  ->
   clear()
