@@ -40,6 +40,20 @@ class Player
     # Remove the old tail, but if it's eating grow by one piece
     @body = @body[1...@body.lenght] unless @isEating
 
+  isEatingItself: ->
+    # If the @body has duplicates then the snake is eating itself
+    head = @head()
+    go = false
+    bodyWithoutHead = @body[0...@body.length-1]
+    bodyWithoutHead.forEach (piece) ->
+
+      x = piece[0]
+      y = piece[1]
+      if ((head[0] is x) and (head[1] is y))
+        go = true
+
+    return go
+
   eat: -> @isEating = true
   stopEating: -> @isEating = false
 

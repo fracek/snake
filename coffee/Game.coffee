@@ -25,8 +25,8 @@ checkSnakeEatApple = ->
 
 checkSnakeHitWalls = ->
   snake = window.player.head()
-  if (snake[0] <= 0) or (snake[0] >= window.grid.width) \
-  or (snake[1] <= 0) or (snake[1] >= window.grid.height)
+  if (snake[0] < 0) or (snake[0] >= window.grid.width) \
+  or (snake[1] < 0) or (snake[1] >= window.grid.height)
     return true
   return false
 
@@ -37,7 +37,7 @@ gameLoop =  ->
     grid.draw()
     player.draw()
     checkSnakeEatApple()
-    window.gameOver = checkSnakeHitWalls()
+    window.gameOver = (checkSnakeHitWalls() or window.player.isEatingItself())
     setTimeout(gameLoop, 1000/10);
 
 
