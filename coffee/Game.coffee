@@ -79,7 +79,9 @@ document.onkeydown = (e) ->
     player.setDir 'left'
   else if (e.keyCode is 40) # Down
     player.setDir 'down'
+    e.preventDefault()
   else if (e.keyCode is 38) # Up
     player.setDir 'up'
+    e.preventDefault()
   else if (e.keyCode is 83) # S
     startGame()

@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Snake</title>
+    <title>Play Snake Now, in your browser!</title>
     <link href='http://fonts.googleapis.com/css?family=Bowlby+One' rel='stylesheet' type='text/css'>
     <script type="text/javascript" 
 	    src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.6.2/jquery.min.js">
@@ -15,6 +15,9 @@
   <body>
     <div class="wrapper">
       <h1>PlaySnakeNow.com</h1>
+      <div id="social">
+	<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://PlaySnakeNow.com" data-count="none">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+      </div>
       <div class="screen">
 	<div id="controlPanel">
 	  <div id="scorePanel" class="hidden">
@@ -29,7 +32,11 @@
 	  </div>
 	</div>
 	<canvas id="c"></canvas>
-      </div>
-    </div> 
+      </div><!-- .screen -->
+      <footer>
+	<p>Copyright &copy; 2011 Francesco Ceccon. Read the 
+	  <a href="/faq.html">FAQs</a>.</p>
+      </footer>
+    </div><!-- .wrapper --> 
   </body>
 </html>
