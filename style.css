@@ -1,12 +1,16 @@
-/* @import url(http://fonts.googleapis.com/css?family=Bowlby+One+SC); */
+@import url(http://fonts.googleapis.com/css?family=Bowlby+One+SC);
 
 html {
     background: url('bg.png') repeat;
     color: white;
 }
 
+.hidden {
+    display: none;
+}
+
 h1 {
-    font: Impact, 'Bowlby One', sans-serif;
+    font: 'Bowlby One', sans-serif;
     color: white;
     font-size: 64px;
     text-align: center;
@@ -19,18 +23,40 @@ h2 { display: none; }
     margin: 0px auto;
 }
 
-p {
-    text-align: center;
+#controlPanel {
+    color: #2F2F2F;
+    font-family: monospace;
+    font-size: 18px;
+    height: 40px;
 }
 
 span#playerScore {
     font-weight: bold;
 }
 
-canvas {
-    border: 1px solid black;
+input[type="range"] {
+    vertical-align: middle;
+}
+
+.screen {
     background: #8CC09F;
-    /* width: 800px; */
+    padding: 20px;
+    width: 600px;
+    margin: 0px auto;
+    border: 1px solid black;
+
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px; 
+    border-radius: 10px; 
+          
+  /* useful if you don't want a bg color from leaking outside the border: */        
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; 
+}
+
+canvas {
+    border: 2px solid black;
+    background: #8CC09F;
+    width: 600px;
     margin-left: auto;
     margin-right: auto;
     display: block;

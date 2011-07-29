@@ -13,10 +13,21 @@
   </head>  
   <body>
     <div class="wrapper">
-      <h1>Snake</h1>
-      <h2>Since '97</h2>
-      <p>Score: <span id="playerScore">0</span></p>
-      <canvas id="c"></canvas>
+      <h1>PlaySnake.com</h1>
+      <div class="screen">
+	<div id="controlPanel">
+	  <div id="scorePanel" class="hidden">
+	    <p>Score: <span id="playerScore">0</span></p>
+	  </div>
+	  <div id="menuPanel">
+	    <label>Speed:</label>
+	    <input type="range" min="1" max="10" value="5" step="1" />
+	    <span id="speedVal">5</span>
+	    <button>Play!</button>
+	  </div>
+	</div>
+	<canvas id="c"></canvas>
+      </div>
     </div> 
   </body>
 </html>
