@@ -10,6 +10,7 @@ class Grid
     y = ~~(Math.random() * @height)
     [x, y]
 
+  moveApple: -> @apple = @newApple()
   draw: ->
     ctx.fillStyle = 'red'
     ctx.fillRect(@apple[0] * @scale, @apple[1] * @scale, @scale, @scale)

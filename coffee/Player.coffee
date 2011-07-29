@@ -7,6 +7,7 @@ class Player
     for i in [10...18]
       @body.push [i, 10]
     @dir = 'right'
+    @isEating = false
 
   setDir: (d) ->
 
@@ -36,11 +37,15 @@ class Player
 
     @body.push [x, y]
 
-    # Remove the old tail
-    @body = @body[1...@body.lenght]
+    # Remove the old tail, but if it's eating grow by one piece
+    @body = @body[1...@body.lenght] unless @isEating
+
+  eat: -> @isEating = true
+  stopEating: -> @isEating = false
 
   draw: ->
     @move()
+    @stopEating()
     size = @size
     ctx.fillStyle = '#2F2F2F'
     @body.forEach (piece) ->

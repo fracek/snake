@@ -12,11 +12,18 @@ clear = ->
   ctx.closePath()
   ctx.fill()
 
+checkSnakeEatApple = ->
+  snake = window.player.head()
+  apple = window.grid.apple
+  if ( snake[0] is apple[0] ) and (snake[1] is apple[1])
+    window.player.eat()
+    window.grid.moveApple()
 
 gameLoop =  ->
   clear()
   grid.draw()
   player.draw()
+  checkSnakeEatApple()
   setTimeout(gameLoop, 1000/10);
 
 gameLoop();
