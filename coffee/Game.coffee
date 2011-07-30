@@ -5,6 +5,55 @@ c.height = window.grid.pixelHeight()
 
 window.ctx = c.getContext('2d')
 
+drawSnakeFrame = (line1, line2) ->
+  clear()
+  ctx.fillStyle = '#2F2F2F'
+  ctx.strokeStyle = '#C7FAD9'
+  snake = []
+  scale = window.grid.scale
+  gridWidth = window.grid.width - 3
+  gridHeight = window.grid.height - 5
+  # Bottom row
+  for i in [3...gridWidth]
+    snake.push [i, gridHeight]
+
+  # Top row
+
+        for i in [1...5]
+    snake.push [3 + i, 5]
+    snake.push [(gridWidth - i) - 1, 5]
+
+  # Left and right columns
+  for i in [5...gridHeight]
+    snake.push [3, i]
+    snake.push [gridWidth - 1, i]
+
+  snake.forEach (piece) ->
+    ctx.beginPath()
+    ctx.rect(piece[0] * scale, piece[1] * scale, scale, scale)
+    ctx.closePath()
+    ctx.fill()
+    ctx.stroke()
+
+  ctx.font = '48px Bowlby One'
+  ctx.textAlign = 'center'
+
+  # First draw the shadow
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'
+  ctx.fillText(line1, 300, 186)
+  ctx.fillText(line2, 300, 256)
+
+  # ...and then write the text
+  ctx.fillStyle = '#2F2F2F'
+  ctx.fillText(line1, 300, 185)
+  ctx.fillText(line2, 300, 255)
+
+displaySplashScreen = ->
+  drawSnakeFrame 'Play Snake', 'Now!'
+
+displayGameOver = ->
+  drawSnakeFrame 'Game', 'Over'
+
 
 clear = ->
   ctx.fillStyle = "#8CC09F"
@@ -76,6 +125,7 @@ gameLoop =  ->
   else
     # Game finished, show the controls
     window.lastScore = window.score
+    displayGameOver()
     showMenuPanel()
 
 
@@ -84,7 +134,7 @@ window.score = 0
 window.lastScore = 0
 window.gameOver = true
 window.speed = 5
-
+displaySplashScreen()
 
 document.onkeydown = (e) ->
   if (e.keyCode is 39) # Right
