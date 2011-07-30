@@ -46,6 +46,10 @@ h2 { display: none; }
     float: right;
     text-indent: -9999px;
 }
+#shareScore span {
+    float: right;
+    margin-left: 10px;
+}
 
 #controlPanel {
     display: block;

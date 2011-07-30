@@ -19,7 +19,7 @@ drawSnakeFrame = (line1, line2) ->
 
   # Top row
 
-        for i in [1...5]
+  for i in [1...5]
     snake.push [3 + i, 5]
     snake.push [(gridWidth - i) - 1, 5]
 
@@ -67,16 +67,17 @@ updateScore = ->
   $('#playerScore').text(window.score)
 
 showMenuPanel = ->
+  scoreSpan = "<span>Score: #{window.score}</span>"
   tweetBtn = "<a id='tweetScore' href='http://twitter.com/share?
 url=http%3A%2F%2Fplaysnakenow.com%2F&text=I%20have%20just%20scored%20#{window.lastScore}%20points%20on%20PlaySnakeNow!'
   target='_blank'>
   Tweet Score</a>"
-    # data-text='I have just scored #{window.lastScore} points on PlaySnakeNow!'
-  console.log tweetBtn
+  # data-text='I have just scored #{window.lastScore} points on PlaySnakeNow!'
 
-  $('#shareScore').html(tweetBtn)
+  $('#shareScore').html(scoreSpan + tweetBtn)
   $('#menuPanel').removeClass('hidden')
   $('#scorePanel').addClass('hidden')
+
 
 # Update the snake speed
 window.updateSpeed = (newSpeed) ->
