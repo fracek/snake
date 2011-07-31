@@ -2,7 +2,7 @@ class Grid
   constructor: (@width = 30, @height = 2 / 3 * @width, @scale = 20) ->
     @apple = @newApple()
     @img = new Image()
-    @img.src = 'apple.png'
+    @img.src = '/img/apple.png'
 
   pixelWidth: -> @width * @scale
   pixelHeight: -> @height * @scale
