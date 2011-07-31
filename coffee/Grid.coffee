@@ -1,8 +1,14 @@
+IMAGELIST = ['apple', 'cookie']
+
 class Grid
   constructor: (@width = 30, @height = 2 / 3 * @width, @scale = 20) ->
     @apple = @newApple()
     @img = new Image()
-    @img.src = '/img/apple.png'
+    location = window.location.hash
+    imageName = (location.match /^\#(\w*)/)[1] # The [0] has the # in it
+    if not (imageName.toLowerCase() in IMAGELIST)
+      imageName = 'apple'
+    @img.src = "/img/#{imageName.toLowerCase()}.png"
 
   pixelWidth: -> @width * @scale
   pixelHeight: -> @height * @scale
