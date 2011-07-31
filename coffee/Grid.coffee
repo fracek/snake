@@ -1,4 +1,4 @@
-IMAGELIST = ['apple', 'cookie']
+IMAGELIST = ['apple', 'cookie', 'classic']
 
 class Grid
   constructor: (@width = 30, @height = 2 / 3 * @width, @scale = 20) ->
