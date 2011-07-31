@@ -5,7 +5,11 @@ class Grid
     @apple = @newApple()
     @img = new Image()
     location = window.location.hash
-    imageName = (location.match /^\#(\w*)/)[1] # The [0] has the # in it
+    if location.length > 1
+      imageName = (location.match /^\#(\w*)/)[1] # The [0] has the # in it
+    else
+      imageName = 'apple'
+
     if not (imageName.toLowerCase() in IMAGELIST)
       imageName = 'apple'
     @img.src = "/img/#{imageName.toLowerCase()}.png"
