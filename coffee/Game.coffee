@@ -89,7 +89,7 @@ window.updateSpeed = (newSpeed) ->
 window.startGame = ->
   window.score = 0
   updateScore()
-  window.grid.moveApple()
+  window.grid.moveApple(window.player.body)
   window.player.initialPosition()
   window.gameOver = false
 
@@ -104,7 +104,7 @@ checkSnakeEatApple = ->
   # increase score and update the text
   if ( snake[0] is apple[0] ) and (snake[1] is apple[1])
     window.player.eat()
-    window.grid.moveApple()
+    window.grid.moveApple(window.player.body)
     window.score += (10 * window.speed)
     updateScore()
 
