@@ -78,8 +78,10 @@ window.updateSpeed = (newSpeed) ->
     $('#speedVal').text(newSpeed)
 
 # Start the game
-window.startGame = (ctx) ->
+window.startGame = ->
   window.player = new Player 20, parseInt($('#speedVal').text())
+  ctx = document.getElementById('c').getContext('2d')
+
   updateScore()
   window.grid.moveApple(window.player.body)
   window.player.initialPosition()
@@ -145,7 +147,7 @@ jQuery(document).ready ->
       player.setDir 'up'
       e.preventDefault()
     else if (e.keyCode is 83) or (e.keyCode is 13) # S or Enter
-      startGame ctx
+      startGame()
 
 
 
