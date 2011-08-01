@@ -1,5 +1,3 @@
-
-
 drawSnakeFrame = (ctx, line1, line2) ->
   clear(ctx)
   ctx.fillStyle = '#2F2F2F'
@@ -8,12 +6,12 @@ drawSnakeFrame = (ctx, line1, line2) ->
   scale = window.grid.scale
   gridWidth = window.grid.width - 3
   gridHeight = window.grid.height - 5
+
   # Bottom row
   for i in [3...gridWidth]
     snake.push [i, gridHeight]
 
   # Top row
-
   for i in [1...5]
     snake.push [3 + i, 5]
     snake.push [(gridWidth - i) - 1, 5]
@@ -77,12 +75,11 @@ url=http%3A%2F%2Fplaysnakenow.com%2F&text=I%20have%20just%20scored%20#{window.la
 # Update the snake speed
 window.updateSpeed = (newSpeed) ->
   if (3 <= newSpeed <= 9)
-    window.speed = newSpeed
-  $('#speedVal').text(window.speed)
+    $('#speedVal').text(newSpeed)
 
 # Start the game
 window.startGame = (ctx) ->
-  window.player.score = 0
+  window.player = new Player 20, parseInt($('#speedVal').text())
   updateScore()
   window.grid.moveApple(window.player.body)
   window.player.initialPosition()
@@ -115,7 +112,7 @@ gameLoop =  (ctx) ->
     player.draw(ctx)
     checkSnakeEatApple()
     window.gameOver = (checkSnakeHitWalls() or window.player.isEatingItself())
-    setTimeout((-> gameLoop ctx), 1000/(window.speed * 2));
+    setTimeout((-> gameLoop ctx), 1000/(window.player.speed * 2));
   else
     # Game finished, show the controls
     window.lastScore = window.player.score
@@ -132,13 +129,9 @@ jQuery(document).ready ->
   c.height = window.grid.pixelHeight()
   displaySplashScreen ctx
 
-
-
   # Player score
   window.lastScore = 0
   window.gameOver = true
-  window.speed = 5
-  window.player = new Player 20, window.speed
 
   $(document).keydown (e) =>
     if (e.keyCode is 39) # Right
@@ -151,7 +144,7 @@ jQuery(document).ready ->
     else if (e.keyCode is 38) # Up
       player.setDir 'up'
       e.preventDefault()
-    else if (e.keyCode is 83) # S
+    else if (e.keyCode is 83) or (e.keyCode is 13) # S or Enter
       startGame ctx
 
 
