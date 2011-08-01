@@ -3,10 +3,12 @@ class Player
 
   constructor: (@size = 10, @speed) ->
     @score = 0
+    @hasMoved = false
     # Snake's body
     @initialPosition()
 
   setDir: (d) ->
+    if @hasMoved then return
 
     if (d is 'left' and @dir is 'right') \
     or (d is 'right' and @dir is 'left') \
@@ -17,6 +19,7 @@ class Player
       newDir = d
 
     @dir = newDir
+    @hasMoved = true
 
   head: ->
     @body[@body.length - 1]
@@ -43,6 +46,7 @@ class Player
 
     # Remove the old tail, but if it's eating grow by one piece
     @body = @body[1...@body.lenght] unless @isEating
+    @hasMoved = false
 
   isEatingItself: ->
     # If the @body has duplicates then the snake is eating itself
