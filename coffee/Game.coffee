@@ -51,6 +51,7 @@ displayGameOver = (ctx)->
 clear = (ctx) ->
   ctx.fillStyle = "#8CC09F"
   ctx.beginPath()
+  c = document.getElementById('c')
   ctx.rect(0, 0, c.width, c.height)
   ctx.closePath()
   ctx.fill()
