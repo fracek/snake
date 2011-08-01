@@ -1,7 +1,8 @@
 # The Player, a.k.a. the snake
 class Player
 
-  constructor: (@size = 10) ->
+  constructor: (@size = 10, @speed) ->
+    @score = 0
     # Snake's body
     @initialPosition()
 
@@ -57,11 +58,13 @@ class Player
 
     return go
 
-  eat: -> @isEating = true
+  eat: ->
+    @isEating = true
+    @score += 10 * @speed
+
   stopEating: -> @isEating = false
 
   draw: (ctx) ->
-    console.log ctx
     @move()
     @stopEating()
     size = @size
@@ -74,5 +77,4 @@ class Player
       ctx.fill()
       ctx.stroke()
 
-# Create player
-window.player = new Player 20
+window.Player = Player

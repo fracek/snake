@@ -44,4 +44,4 @@ class Grid
     catch e
       # do nothing
 
-window.grid = new Grid
+window.Grid = Grid

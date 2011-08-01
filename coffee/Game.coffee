@@ -1,7 +1,6 @@
 
 
 drawSnakeFrame = (ctx, line1, line2) ->
-  console.log ctx
   clear(ctx)
   ctx.fillStyle = '#2F2F2F'
   ctx.strokeStyle = '#C7FAD9'
@@ -44,10 +43,7 @@ drawSnakeFrame = (ctx, line1, line2) ->
   ctx.fillText(line1, 300, 185)
   ctx.fillText(line2, 300, 255)
 
-  console.log 'the end'
-
 displaySplashScreen = (ctx) ->
-  console.log ctx
   drawSnakeFrame ctx, 'Play Snake', 'Now!'
 
 displayGameOver = (ctx)->
@@ -63,10 +59,10 @@ clear = (ctx) ->
 
 
 updateScore = ->
-  $('#playerScore').text(window.score)
+  $('#playerScore').text(window.player.score)
 
 showMenuPanel = ->
-  scoreSpan = "<span>Score: #{window.score}</span>"
+  scoreSpan = "<span>Score: #{window.player.score}</span>"
   tweetBtn = "<a id='tweetScore' href='http://twitter.com/share?
 url=http%3A%2F%2Fplaysnakenow.com%2F&text=I%20have%20just%20scored%20#{window.lastScore}%20points%20on%20PlaySnakeNow!'
   target='_blank'>
@@ -86,7 +82,7 @@ window.updateSpeed = (newSpeed) ->
 
 # Start the game
 window.startGame = (ctx) ->
-  window.score = 0
+  window.player.score = 0
   updateScore()
   window.grid.moveApple(window.player.body)
   window.player.initialPosition()
@@ -94,7 +90,6 @@ window.startGame = (ctx) ->
 
   $('#menuPanel').addClass('hidden')
   $('#scorePanel').removeClass('hidden')
-  console.log window.score
   gameLoop ctx
 
 checkSnakeEatApple = ->
@@ -104,7 +99,6 @@ checkSnakeEatApple = ->
   if ( snake[0] is apple[0] ) and (snake[1] is apple[1])
     window.player.eat()
     window.grid.moveApple(window.player.body)
-    window.score += (10 * window.speed)
     updateScore()
 
 checkSnakeHitWalls = ->
@@ -124,7 +118,7 @@ gameLoop =  (ctx) ->
     setTimeout((-> gameLoop ctx), 1000/(window.speed * 2));
   else
     # Game finished, show the controls
-    window.lastScore = window.score
+    window.lastScore = window.player.score
     displayGameOver(ctx)
     showMenuPanel(ctx)
 
@@ -132,15 +126,19 @@ jQuery(document).ready ->
   # Setup the canvas
   c = document.getElementById('c')
   ctx = c.getContext('2d')
+  window.grid = new Grid
+
   c.width = window.grid.pixelWidth()
   c.height = window.grid.pixelHeight()
   displaySplashScreen ctx
 
+
+
   # Player score
-  window.score = 0
   window.lastScore = 0
   window.gameOver = true
   window.speed = 5
+  window.player = new Player 20, window.speed
 
   $(document).keydown (e) =>
     if (e.keyCode is 39) # Right
@@ -154,7 +152,6 @@ jQuery(document).ready ->
       player.setDir 'up'
       e.preventDefault()
     else if (e.keyCode is 83) # S
-      console.log 'CTX: ' + ctx
       startGame ctx
 
 
