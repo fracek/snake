@@ -60,7 +60,8 @@ class Player
   eat: -> @isEating = true
   stopEating: -> @isEating = false
 
-  draw: ->
+  draw: (ctx) ->
+    console.log ctx
     @move()
     @stopEating()
     size = @size

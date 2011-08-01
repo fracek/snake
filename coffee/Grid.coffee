@@ -38,7 +38,7 @@ class Grid
     else
       return @apple
 
-  draw: ->
+  draw: (ctx) ->
     try
       ctx.drawImage(@img, @apple[0] * @scale, @apple[1] * @scale, @scale, @scale)
     catch e

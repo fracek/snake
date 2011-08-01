@@ -1,12 +1,8 @@
-# Setup the canvas
-c = document.getElementById('c')
-c.width = window.grid.pixelWidth()
-c.height = window.grid.pixelHeight()
 
-window.ctx = c.getContext('2d')
 
-drawSnakeFrame = (line1, line2) ->
-  clear()
+drawSnakeFrame = (ctx, line1, line2) ->
+  console.log ctx
+  clear(ctx)
   ctx.fillStyle = '#2F2F2F'
   ctx.strokeStyle = '#C7FAD9'
   snake = []
@@ -48,14 +44,17 @@ drawSnakeFrame = (line1, line2) ->
   ctx.fillText(line1, 300, 185)
   ctx.fillText(line2, 300, 255)
 
-displaySplashScreen = ->
-  drawSnakeFrame 'Play Snake', 'Now!'
+  console.log 'the end'
 
-displayGameOver = ->
-  drawSnakeFrame 'Game', 'Over'
+displaySplashScreen = (ctx) ->
+  console.log ctx
+  drawSnakeFrame ctx, 'Play Snake', 'Now!'
+
+displayGameOver = (ctx)->
+  drawSnakeFrame ctx, 'Game', 'Over'
 
 
-clear = ->
+clear = (ctx) ->
   ctx.fillStyle = "#8CC09F"
   ctx.beginPath()
   ctx.rect(0, 0, c.width, c.height)
@@ -86,7 +85,7 @@ window.updateSpeed = (newSpeed) ->
   $('#speedVal').text(window.speed)
 
 # Start the game
-window.startGame = ->
+window.startGame = (ctx) ->
   window.score = 0
   updateScore()
   window.grid.moveApple(window.player.body)
@@ -96,7 +95,7 @@ window.startGame = ->
   $('#menuPanel').addClass('hidden')
   $('#scorePanel').removeClass('hidden')
   console.log window.score
-  gameLoop();
+  gameLoop ctx
 
 checkSnakeEatApple = ->
   snake = window.player.head()
@@ -115,38 +114,48 @@ checkSnakeHitWalls = ->
     return true
   return false
 
-gameLoop =  ->
+gameLoop =  (ctx) ->
   if not  window.gameOver
-    clear()
-    grid.draw()
-    player.draw()
+    clear(ctx)
+    grid.draw(ctx)
+    player.draw(ctx)
     checkSnakeEatApple()
     window.gameOver = (checkSnakeHitWalls() or window.player.isEatingItself())
-    setTimeout(gameLoop, 1000/(window.speed * 2));
+    setTimeout((-> gameLoop ctx), 1000/(window.speed * 2));
   else
     # Game finished, show the controls
     window.lastScore = window.score
-    displayGameOver()
-    showMenuPanel()
+    displayGameOver(ctx)
+    showMenuPanel(ctx)
+
+jQuery(document).ready ->
+  # Setup the canvas
+  c = document.getElementById('c')
+  ctx = c.getContext('2d')
+  c.width = window.grid.pixelWidth()
+  c.height = window.grid.pixelHeight()
+  displaySplashScreen ctx
+
+  # Player score
+  window.score = 0
+  window.lastScore = 0
+  window.gameOver = true
+  window.speed = 5
+
+  $(document).keydown (e) =>
+    if (e.keyCode is 39) # Right
+      player.setDir 'right'
+    else if (e.keyCode is 37) # Left
+      player.setDir 'left'
+    else if (e.keyCode is 40) # Down
+      player.setDir 'down'
+      e.preventDefault()
+    else if (e.keyCode is 38) # Up
+      player.setDir 'up'
+      e.preventDefault()
+    else if (e.keyCode is 83) # S
+      console.log 'CTX: ' + ctx
+      startGame ctx
 
 
-# Player score
-window.score = 0
-window.lastScore = 0
-window.gameOver = true
-window.speed = 5
-displaySplashScreen()
 
-document.onkeydown = (e) ->
-  if (e.keyCode is 39) # Right
-    player.setDir 'right'
-  else if (e.keyCode is 37) # Left
-    player.setDir 'left'
-  else if (e.keyCode is 40) # Down
-    player.setDir 'down'
-    e.preventDefault()
-  else if (e.keyCode is 38) # Up
-    player.setDir 'up'
-    e.preventDefault()
-  else if (e.keyCode is 83) # S
-    startGame()
